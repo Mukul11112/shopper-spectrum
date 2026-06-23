@@ -1,22 +1,20 @@
 import streamlit as st
 import pandas as pd
 import joblib
-import gzip
-import pickle
 
-# ----------------------------
+# ============================
 # Load Saved Models
-# ----------------------------
+# ============================
 
 kmeans = joblib.load("kmeans.pkl")
 scaler = joblib.load("scaler.pkl")
 
-with gzip.open("similarity.pkl.gz", "rb") as f:
-    similarity_df = pickle.load(f)
+# Load compressed similarity file
+similarity_df = joblib.load("similarity.pkl.gz")
 
-# ----------------------------
-# Page Config
-# ----------------------------
+# ============================
+# Page Configuration
+# ============================
 
 st.set_page_config(
     page_title="Shopper Spectrum",
@@ -24,9 +22,9 @@ st.set_page_config(
     layout="wide"
 )
 
-# ----------------------------
+# ============================
 # Sidebar
-# ----------------------------
+# ============================
 
 st.sidebar.title("🛒 Shopper Spectrum")
 
@@ -39,9 +37,9 @@ page = st.sidebar.radio(
     ]
 )
 
-# ----------------------------
+# ============================
 # Home Page
-# ----------------------------
+# ============================
 
 if page == "Home":
 
@@ -62,9 +60,9 @@ if page == "Home":
     - Product Recommendation
     """)
 
-# ----------------------------
+# ============================
 # Customer Segmentation
-# ----------------------------
+# ============================
 
 elif page == "Customer Segmentation":
 
@@ -100,9 +98,9 @@ elif page == "Customer Segmentation":
             f"Predicted Customer Segment: Cluster {cluster}"
         )
 
-# ----------------------------
+# ============================
 # Product Recommendation
-# ----------------------------
+# ============================
 
 elif page == "Product Recommendation":
 
@@ -132,9 +130,9 @@ elif page == "Product Recommendation":
                 "Product not found. Please enter the exact product name."
             )
 
-# ----------------------------
+# ============================
 # Footer
-# ----------------------------
+# ============================
 
 st.markdown("---")
 st.markdown("Developed for Shopper Spectrum Project")
